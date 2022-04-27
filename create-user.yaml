@@ -1,0 +1,17 @@
+#ansible-playbook --extra-vars "username=hosein password=123456" create-user.yaml
+---
+- name: Ansible Create user functionlity module demo
+  become: true
+  hosts: demo
+# Defining the remote server where the ansible create user module will manage the objects
+#remote_user: hami  # Using Remote user as ubuntu
+  tasks:
+    - name: Add the user {{ username }} with a specific uid and a primary group of 'sudo'
+      ansible.builtin.user:
+        name: "{{ username }}"
+        comment: "{{ username }}"
+        group: sudo 
+        password:  "{{ password|password_hash('sha512') }}"
+        shell: "/bin/bash"        
+        createhome: yes     # Defaults to yes
+        home: /home/{{ username }}    # Defaults to /home/<username>
