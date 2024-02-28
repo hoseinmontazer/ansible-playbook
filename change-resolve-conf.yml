@@ -1,3 +1,4 @@
+#ansible-playbook  --become  -u demo  change-resolve-conf.yml
 ---
 - name: Ansible change resolve conf
   #become: true
