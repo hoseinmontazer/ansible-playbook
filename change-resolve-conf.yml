@@ -1,0 +1,28 @@
+---
+- name: Ansible change resolve conf
+  #become: true
+  hosts: minio3
+  #become_user: uid
+  #become_method: sudo
+  tasks:
+    - name: Remove file (delete file)
+      ansible.builtin.file:
+        path: /etc/resolv.conf
+        state: absent
+    - name: Check if resolv.conf file exists
+      stat:
+          path: /etc/resolv.conf
+      register: file_info
+
+    - name: Create /etc/resolv.conf if it exists
+      file:
+        path: /etc/resolv.conf
+        state: touch
+      when: not file_info.stat.exists
+
+    - name: Set DNS nameservers in /etc/resolv.conf
+      blockinfile:
+          path: /etc/resolv.conf
+          block: |
+                search .
+                nameserver 178.22.122.100
