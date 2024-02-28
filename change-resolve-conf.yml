@@ -3,7 +3,6 @@
 - name: Ansible change resolve conf
   #become: true
   hosts: minio3
-  #become_user: uid
   #become_method: sudo
   tasks:
     - name: Remove file (delete file)
