@@ -3,7 +3,6 @@
 - name: Ansible Create user functionlity module demo
   #become: true
   hosts: minio3
-  #become_user: uid
   #become_method: sudo
   tasks:
     - name: Update and upgrade apt packages
